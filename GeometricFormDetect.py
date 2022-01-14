@@ -12,6 +12,29 @@ canny = cv2.erode(canny,None,iterations=1)
 
 cnts,_ = cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+for c in cnts:
+    epsilon = 0.01*cv2.arcLength(c,True)
+    approx =  cv2.approxPolyDP(c,epsilon,True)
+    print (len(approx))
+    x,y,w,h = cv2.boundingRect(approx)
+
+if len (approx) ==3:
+    cv2.putText(imagen, 'Triangulo',(x,y-5),1,1.5(0,255,0),2)
+
+if len (approx) == 4:
+    aspect_ratio = float(w)/h
+    print ('aspectRatio = ', aspect_ratio)
+    if aspect_ratio == 1:
+        cv2.putText(imagen,'Cuadrado',(x,y-5),1,1.5,(0,255,0),2)
+    else:
+        cv2.putText(imagen, 'Rectangulo',(x,y-5),1,1.5,(0,255,0),2)
+
+if len(approx)==5:
+    cv2.putText(imagen,'Pentagono',(x,y-5),1,1.5,(0,255,0),2)
+
+if len(approx)==6:
+    cv2.putText(imagen,'Hexagono', (x,y-5),1,1.5,(0,255,0),2)
+    
 
 cv2.imshow('IMAGEN DE ENTRADA',imagen)
 cv2.imshow('METODO CANNY', canny)
