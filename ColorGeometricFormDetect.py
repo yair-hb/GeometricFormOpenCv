@@ -95,7 +95,7 @@ imgHSV = cv2.cvtColor(imagen, cv2.COLOR_BGR2HSV)
 
 for c in cnts:
     x,y,w,h = cv2.boundingRect(c)
-    imAux = np.zeros(imagen.shape[:2], dtype='uint8')
+    imAux = np.zeros(imagen.shape[:2], dtype="uint8")
     imAux = cv2.drawContours(imAux, [c], -1, 255,-1)
     maskHSV = cv2.bitwise_and(imgHSV,imgHSV, mask=imAux)
     nombre = figNombre(c,w,h)
